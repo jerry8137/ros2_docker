@@ -31,6 +31,7 @@ ARG GID=1000
 RUN groupadd -g $GID -o $UNAME
 RUN useradd -m -u $UID -g $GID -s /bin/bash $UNAME
 RUN echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN echo "source /opt/ros/foxy/setup.bash" >> /home/$UNAME/.bashrc
 
 USER $UNAME
 CMD ["/bin/bash"]
