@@ -42,7 +42,7 @@ def build_docker_command(volumes):
         f"--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw",
         f"--volume={xdg_runtime_dir}/{wayland_display}:/tmp/{wayland_display}:rw",
         "--ipc=host",
-        "--privileged"
+        "--privileged",
     ]
 
     # Add user-specified volumes
@@ -51,7 +51,7 @@ def build_docker_command(volumes):
         base_command.append(f"--volume={abs_path}:{abs_path}:rw")
 
     # Image and command
-    base_command += ["jros:foxy", "bash"]
+    base_command += ["jros:foxy", "/bin/bash"]
 
     return base_command
 

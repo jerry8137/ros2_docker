@@ -1,0 +1,17 @@
+[project]
+name = "ros2-docker-cli"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Jerry Hou", email = "jerry8137@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+jros-start = "ros2_docker_cli.start:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
