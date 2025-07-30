@@ -42,7 +42,6 @@ def build_docker_command(volumes):
         f"--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw",
         f"--volume={xdg_runtime_dir}/{wayland_display}:/tmp/{wayland_display}:rw",
         "--ipc=host",
-        "--privileged",
     ]
 
     # Add user-specified volumes
