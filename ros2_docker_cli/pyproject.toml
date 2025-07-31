@@ -11,6 +11,7 @@ dependencies = []
 
 [project.scripts]
 jros-start = "ros2_docker_cli.start:main"
+jros-build = "ros2_docker_cli.build:main"
 
 [build-system]
 requires = ["hatchling"]
