@@ -23,6 +23,7 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/r
 RUN apt-get update && apt-get install -y --no-install-recommends \
   ros-foxy-desktop \
   python3-argcomplete
+RUN apt-get install -y ros-dev-tools
 
 # setup non-root user
 ARG UNAME=user
@@ -30,7 +31,7 @@ ARG UID=1000
 ARG GID=1000
 RUN groupadd -g $GID -o $UNAME
 RUN useradd -m -u $UID -g $GID -s /bin/bash $UNAME
-RUN echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN echo "$UNAME ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN echo "source /opt/ros/foxy/setup.bash" >> /home/$UNAME/.bashrc
 
 USER $UNAME
