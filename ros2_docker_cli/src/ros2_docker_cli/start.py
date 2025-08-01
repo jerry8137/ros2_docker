@@ -28,7 +28,7 @@ def run_xhost(distro):
     else:
         raise RuntimeError("Unsupported or unknown Linux distribution.")
 
-def build_docker_command(volumes):
+def build_docker_command(volumes, workspace):
     wayland_display = os.environ.get("WAYLAND_DISPLAY", "")
     xdg_runtime_dir = os.environ.get("XDG_RUNTIME_DIR", "/tmp")
 
@@ -42,6 +42,7 @@ def build_docker_command(volumes):
         f"--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw",
         f"--volume={xdg_runtime_dir}/{wayland_display}:/tmp/{wayland_display}:rw",
         "--ipc=host",
+        f"-w={workspace}",
     ]
 
     # Add user-specified volumes
@@ -60,12 +61,16 @@ def main():
         "-v", "--volume", action="append", default=[],
         help="Additional volume to mount. Format: host_path (same path will be used in container)"
     )
+    parser.add_argument(
+        "-w", "--workspace", default="/home", type=str,
+        help="Workspace to enter with"
+    )
     args = parser.parse_args()
 
     distro = detect_distro()
     run_xhost(distro)
 
-    docker_cmd = build_docker_command(args.volume)
+    docker_cmd = build_docker_command(args.volume, args.workspace)
     print("Running Docker with command:\n", " ".join(docker_cmd))
     subprocess.run(docker_cmd)
 
