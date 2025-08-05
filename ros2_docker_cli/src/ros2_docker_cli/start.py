@@ -42,6 +42,7 @@ def build_docker_command(volumes, workspace):
         f"--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw",
         f"--volume={xdg_runtime_dir}/{wayland_display}:/tmp/{wayland_display}:rw",
         "--ipc=host",
+        "--name=ros",
         f"-w={workspace}",
     ]
 
